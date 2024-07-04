@@ -146,3 +146,90 @@ sequenceDiagram
 
 
 ```
+
+
+
+## ERD 설계
+
+``` mermaid
+erDiagram
+    USER {
+        UUID id PK "NOT NULL"
+        String userName
+    }
+
+    USER_POINT{
+        UUID id PK "NOT NULL"
+        UUID userId FK "NOT NULL"
+        int point
+    }
+
+    CHARGE_HISTORY{
+        UUID id PK "NOT NULL"
+        UUID pointID FK "NOT NULL"
+        String type
+        int amount
+        Timestamp created_at
+    }
+
+    CONCERT {
+        Long id PK "NOT NULL"
+        String concertName
+        String place
+    }
+
+    CONCERT_SCHEDULE {
+        UUID id PK "NOT NULL"
+        UUID concertId FK "NOT NULL"
+        int capacity
+        Timestamp concertDate
+        Timestamp opening_at
+        Timestamp closing_at
+    }
+
+    CONCERT_SEAT {
+        UUID id PK "NOT NUL"
+        UUID concertId FK "NOT NULL"
+        UUID zoneId FK "NOT NULL"
+        String seatNo
+        String seatStatus
+    }
+
+    RESERVATION {
+        UUID id PK "NOT NULL"
+        UUID userId FK "NOT NULL"
+        UUID scheduleId FK "NOT NULL"
+        UUID seatId
+        Timestamp created_at
+        Timestamp reserved_at
+        Timestamp paid_at 
+    }
+
+    PAYMENT {
+        UUID id PK "NOT NULL"
+        UUID userId FK "NOT NULL"
+        UUID reservationId FK "NOT NULL"
+        int amount
+        Timestamp created_at
+    }
+
+    TOKEN {
+        UUID id PK "NOT NULL"
+        UUID userId FK "NOT NULL"
+        String token
+        Timestamp created_at
+        TimeStamp expires_at
+    }
+
+    USER ||--o{ USER_POINT : ""
+    USER_POINT ||--|{ CHARGE_HISTORY : ""
+    USER ||--o{ RESERVATION : ""
+    USER ||--o{ PAYMENT : ""
+    USER ||--o{ TOKEN : ""
+    CONCERT ||--o{ CONCERT_SCHEDULE : ""
+    CONCERT_SCHEDULE ||--o{ CONCERT_SEAT : ""
+    CONCERT_SCHEDULE ||--o{ RESERVATION : ""
+    CONCERT_SEAT ||--o{ RESERVATION : ""
+    RESERVATION ||--|{ PAYMENT : ""
+    
+```
