@@ -62,6 +62,9 @@
 - 동시에 여러 사용자가 예약 요청을 했을 때, 좌석이 중복으로 배정 가능하지 않도록 합니다.
 
 
+## Milestone
+[항해플러스_콘서트 예약_Milestone](https://github.com/users/BoHyun-Choi-0320/projects/2)
+
 ## Sequence Diagram
 
 ``` mermaid
